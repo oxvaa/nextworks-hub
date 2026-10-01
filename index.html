@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="NEXTworks HUB" />
+  <meta name="description" content="NEXTworks HUB — všechny služby a projekty na jednom místě." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <title>NEXTworks HUB</title>
+  <style>
+    :root{
+      color-scheme: light dark;
+      --bg:#f4f4f6;
+      --surface:rgba(255,255,255,.72);
+      --surface-strong:rgba(255,255,255,.92);
+      --text:#111113;
+      --muted:#77777c;
+      --line:rgba(0,0,0,.075);
+      --shadow:0 18px 60px rgba(0,0,0,.10);
+      --pill:rgba(255,255,255,.68);
+      --accent:#111113;
+      --accentText:#fff;
+      --radius:26px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#09090a;
+        --surface:rgba(28,28,30,.72);
+        --surface-strong:rgba(31,31,33,.94);
+        --text:#f5f5f7;
+        --muted:#9a9aa1;
+        --line:rgba(255,255,255,.085);
+        --shadow:0 22px 70px rgba(0,0,0,.42);
+        --pill:rgba(44,44,46,.72);
+        --accent:#f5f5f7;
+        --accentText:#111113;
+      }
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth;background:var(--bg)}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,system-ui,sans-serif;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(120,120,255,.10), transparent 28%),
+        radial-gradient(circle at 92% 8%, rgba(0,180,255,.08), transparent 22%),
+        var(--bg);
+      color:var(--text);
+      letter-spacing:-.02em;
+      overflow-x:hidden;
+    }
+    button,a{font:inherit}
+    .page{width:min(100%,680px);margin:0 auto;padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 44px)}
+    .glass{
+      background:var(--surface);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(28px) saturate(160%);
+      -webkit-backdrop-filter:blur(28px) saturate(160%);
+    }
+    .topbar{position:sticky;top:calc(env(safe-area-inset-top) + 8px);z-index:20;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:22px;margin-bottom:24px}
+    .brand{display:flex;gap:10px;align-items:center;min-width:0}
+    .mark{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:var(--text);color:var(--bg);font-weight:800;font-size:13px;letter-spacing:-.05em}
+    .brandText{line-height:1.02;min-width:0}.brandText strong{font-size:14px;display:block}.brandText span{font-size:11px;color:var(--muted);display:block;margin-top:3px}
+    .iconBtn{width:36px;height:36px;border-radius:13px;border:1px solid var(--line);background:var(--pill);color:var(--text);display:grid;place-items:center;cursor:pointer}
+    .hero{padding:8px 4px 22px}.eyebrow{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+    h1{font-size:clamp(36px,9vw,58px);line-height:.98;letter-spacing:-.065em;margin:0;max-width:560px}.hero p{font-size:16px;line-height:1.45;color:var(--muted);max-width:520px;margin:14px 0 0}
+    .chips{display:flex;gap:8px;overflow:auto;margin:4px -16px 20px;padding:0 16px 4px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:var(--pill);font-size:12px;color:var(--muted)}.chip strong{color:var(--text)}
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;margin:6px 4px 10px}.sectionTitle h2{font-size:14px;margin:0;letter-spacing:-.02em}.sectionTitle span{font-size:12px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .card{position:relative;overflow:hidden;border-radius:var(--radius);padding:18px;text-decoration:none;color:inherit;min-height:124px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .2s ease;background:var(--surface);border:1px solid var(--line);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%)}
+    .card:active{transform:scale(.985)}
+    .cardTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.appIcon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--text);color:var(--bg);font-weight:800;font-size:17px;letter-spacing:-.06em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+    .arrow{width:32px;height:32px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);background:var(--pill)}
+    .card h3{font-size:18px;margin:16px 0 3px}.card p{font-size:13px;line-height:1.38;margin:0;color:var(--muted);max-width:92%}
+    .meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.badge{font-size:10px;font-weight:700;padding:5px 7px;border-radius:999px;background:var(--pill);border:1px solid var(--line);color:var(--muted)}.badge.live{color:var(--text)}
+    .featured{min-height:175px;background:linear-gradient(145deg,rgba(10,10,12,.98),rgba(27,27,31,.94));color:#fff;border-color:rgba(255,255,255,.09)}.featured p,.featured .arrow{color:rgba(255,255,255,.62)}.featured .appIcon{background:#fff;color:#0a0a0b}.featured .badge{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.72)}
+    .featured:before{content:"";position:absolute;width:210px;height:210px;border-radius:50%;right:-100px;top:-100px;background:radial-gradient(circle,rgba(120,130,255,.28),transparent 68%);pointer-events:none}
+    .quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.mini{border-radius:22px;padding:14px;text-decoration:none;color:inherit;min-height:92px;display:flex;flex-direction:column;justify-content:space-between}.mini b{font-size:14px}.mini span{font-size:11px;color:var(--muted)}
+    .footer{padding:32px 4px 8px;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:12px;align-items:center}.footer strong{color:var(--text);font-weight:650}
+    .sheetWrap{position:fixed;inset:0;z-index:100;display:none}.sheetWrap.open{display:block}.scrim{position:absolute;inset:0;background:rgba(0,0,0,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;animation:fade .2s forwards}.sheet{position:absolute;left:0;right:0;bottom:0;margin:auto;width:min(100%,680px);background:var(--surface-strong);border:1px solid var(--line);border-bottom:none;border-radius:30px 30px 0 0;padding:10px 18px calc(env(safe-area-inset-bottom) + 22px);transform:translateY(100%);animation:up .35s cubic-bezier(.2,.8,.2,1) forwards;box-shadow:0 -20px 80px rgba(0,0,0,.25);backdrop-filter:blur(30px) saturate(170%);-webkit-backdrop-filter:blur(30px) saturate(170%)}
+    .grab{width:36px;height:5px;border-radius:999px;background:var(--line);margin:0 auto 14px}.sheetHeader{display:flex;align-items:center;gap:12px}.sheetHeader .appIcon{width:50px;height:50px}.sheet h4{font-size:22px;margin:0}.sheet .desc{font-size:14px;line-height:1.45;color:var(--muted);margin:14px 0}.detailRows{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:14px 0}.row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}.row:last-child{border-bottom:0}.row span{color:var(--muted);text-align:right}.actions{display:grid;grid-template-columns:1fr auto;gap:8px}.primary,.secondary{border:none;border-radius:16px;padding:13px 15px;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:var(--accentText)}.secondary{width:48px;background:var(--pill);color:var(--text);border:1px solid var(--line)}
+    @keyframes up{to{transform:translateY(0)}}@keyframes fade{to{opacity:1}}
+    @media (min-width:620px){.page{padding-left:20px;padding-right:20px}.grid{grid-template-columns:1fr 1fr}.featured{grid-column:1/-1}.chips{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar glass">
+      <div class="brand"><div class="mark">NW</div><div class="brandText"><strong>NEXTworks HUB</strong><span>All services. One place.</span></div></div>
+      <button class="iconBtn" id="shareBtn" aria-label="Sdílet">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>
+      </button>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">NEXTworks ecosystem</div>
+      <h1>Everything by NEXTworks.</h1>
+      <p>Produkty, projekty, služby a vývojářské buildy — stručně, přehledně a na jednom místě.</p>
+    </section>
+
+    <div class="chips" aria-label="Stav ekosystému">
+      <div class="chip"><strong>5</strong> services</div>
+      <div class="chip"><strong>iOS 27</strong> ready</div>
+      <div class="chip"><strong>NW</strong> Dev Testing</div>
+      <div class="chip"><strong>2026</strong> ecosystem</div>
+    </div>
+
+    <div class="sectionTitle"><h2>Services</h2><span>Tap for details</span></div>
+    <section class="grid" id="services"></section>
+
+    <div class="sectionTitle" style="margin-top:22px"><h2>Quick access</h2><span>NEXTworks</span></div>
+    <section class="quick">
+      <button class="mini glass" id="aboutBtn" style="border:1px solid var(--line);text-align:left;color:inherit"><b>About NEXTworks</b><span>Company & ecosystem</span></button>
+      <button class="mini glass" id="contactBtn" style="border:1px solid var(--line);text-align:left;color:inherit"><b>Contact</b><span>Business & support</span></button>
+    </section>
+
+    <footer class="footer"><span><strong>NEXTworks</strong> · HUB</span><span>Made for iOS</span></footer>
+  </main>
+
+  <div class="sheetWrap" id="sheetWrap" aria-hidden="true">
+    <div class="scrim" id="scrim"></div>
+    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="grab"></div>
+      <div class="sheetHeader"><div class="appIcon" id="sheetIcon">NW</div><div><h4 id="sheetTitle">Service</h4><div id="sheetTag" style="font-size:12px;color:var(--muted);margin-top:4px">NEXTworks</div></div></div>
+      <p class="desc" id="sheetDesc"></p>
+      <div class="detailRows" id="sheetRows"></div>
+      <div class="actions"><button class="primary" id="openService">Open service</button><button class="secondary" id="closeSheet" aria-label="Zavřít">×</button></div>
+    </section>
+  </div>
+
+  <script>
+    // Add real URLs here whenever you are ready.
+    const services = [
+      {
+        id:'link', icon:'L', title:'LINK', featured:true,
+        short:'Social platform by NEXTworks — chat, profiles, feed and LINK ecosystem.',
+        tag:'Social · Messaging', status:'Active', version:'LINK V / 5.0', access:'Public / Testing', url:'#',
+        details:'Hlavní sociální platforma NEXTworks. Minimalistický chat, profily, feed, LINK Official, Artists & Celebrities a další části LINK ekosystému.'
+      },
+      {
+        id:'backstage', icon:'B', title:'BACKSTAGE',
+        short:'Shows, artists and live events in Czechia and beyond.',
+        tag:'Events · PWA', status:'Active', version:'2.0', access:'Web App', url:'#',
+        details:'Event PWA zaměřená na koncerty a shows. Přehled interpretů, akcí, posterů a detailů eventů v jednoduchém mobilním rozhraní.'
+      },
+      {
+        id:'xxl', icon:'XX', title:'XXL CZECHIA',
+        short:'Official event hub for XXL Czechia experiences.',
+        tag:'Events · Experience', status:'Active', version:'3.0', access:'Guest ready', url:'#',
+        details:'Oficiální event hub pro XXL Czechia — informace o eventu, venue, programu, guest režimu a účtech.'
+      },
+      {
+        id:'dev', icon:'NW', title:'NW Dev Builds',
+        short:'Archived and current LINK development builds for testers.',
+        tag:'Developer · Access', status:'Members', version:'1.0 → latest', access:'$49 one-time', url:'#',
+        details:'Privátní testing sekce NEXTworks. Obsahuje vybrané stable, latest a archivní buildy LINKu pro členy NW Dev Testing.'
+      },
+      {
+        id:'labs', icon:'⌁', title:'NEXTworks Labs',
+        short:'Experiments, concepts and upcoming NEXTworks products.',
+        tag:'Experimental', status:'Preview', version:'Rolling', access:'Selected', url:'#',
+        details:'Prostor pro prototypy, nové koncepty a experimentální produkty NEXTworks před jejich veřejným vydáním.'
+      }
+    ];
+
+    const servicesEl = document.getElementById('services');
+    const sheetWrap = document.getElementById('sheetWrap');
+    const sheetIcon = document.getElementById('sheetIcon');
+    const sheetTitle = document.getElementById('sheetTitle');
+    const sheetTag = document.getElementById('sheetTag');
+    const sheetDesc = document.getElementById('sheetDesc');
+    const sheetRows = document.getElementById('sheetRows');
+    const openService = document.getElementById('openService');
+    let currentService = null;
+
+    services.forEach((s)=>{
+      const card = document.createElement('button');
+      card.className = `card ${s.featured ? 'featured' : ''}`;
+      card.style.textAlign='left';card.style.width='100%';card.style.cursor='pointer';
+      card.innerHTML = `
+        <div class="cardTop"><div class="appIcon">${s.icon}</div><div class="arrow">↗</div></div>
+        <div><h3>${s.title}</h3><p>${s.short}</p><div class="meta"><span class="badge live">${s.status}</span><span class="badge">${s.version}</span></div></div>`;
+      card.addEventListener('click',()=>showService(s));
+      servicesEl.appendChild(card);
+    });
+
+    function showService(s){
+      currentService=s;
+      sheetIcon.textContent=s.icon;sheetTitle.textContent=s.title;sheetTag.textContent=s.tag;sheetDesc.textContent=s.details;
+      sheetRows.innerHTML=`<div class="row"><b>Status</b><span>${s.status}</span></div><div class="row"><b>Version</b><span>${s.version}</span></div><div class="row"><b>Access</b><span>${s.access}</span></div>`;
+      openService.textContent = s.url === '#' ? 'Link coming soon' : 'Open service';
+      openService.disabled = s.url === '#';openService.style.opacity=s.url==='#'?'.52':'1';
+      sheetWrap.classList.add('open');sheetWrap.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+    }
+    function closeSheet(){sheetWrap.classList.remove('open');sheetWrap.setAttribute('aria-hidden','true');document.body.style.overflow='';currentService=null}
+    document.getElementById('closeSheet').onclick=closeSheet;document.getElementById('scrim').onclick=closeSheet;
+    openService.onclick=()=>{if(currentService&&currentService.url!=='#') location.href=currentService.url};
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+
+    document.getElementById('aboutBtn').onclick=()=>showService({icon:'NW',title:'NEXTworks',tag:'Independent product studio',details:'NEXTworks zastřešuje digitální produkty, event platformy, sociální aplikace a experimentální projekty.',status:'Active',version:'2026',access:'Worldwide',url:'#'});
+    document.getElementById('contactBtn').onclick=()=>showService({icon:'@',title:'Contact',tag:'NEXTworks',details:'Business, partnerships, support and testing access. Přidej sem svůj oficiální e-mail, Instagram nebo support link.',status:'Open',version:'Business / Support',access:'Add contact URL',url:'#'});
+
+    document.getElementById('shareBtn').onclick=async()=>{
+      const data={title:'NEXTworks HUB',text:'NEXTworks — all services in one place.',url:location.href};
+      try{if(navigator.share) await navigator.share(data); else await navigator.clipboard.writeText(location.href)}catch(e){}
+    };
+
+    if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+  </script>
+</body>
+</html>

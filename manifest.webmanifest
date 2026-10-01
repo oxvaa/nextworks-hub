@@ -1,0 +1,10 @@
+{
+  "name": "NEXTworks HUB",
+  "short_name": "NW HUB",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#09090a",
+  "theme_color": "#09090a",
+  "description": "NEXTworks services and projects in one place.",
+  "icons": []
+}
